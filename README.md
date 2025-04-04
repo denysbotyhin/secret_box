@@ -26,7 +26,7 @@ To run the program execute the following comamnd from the build folder `.//bin/R
 
 ## Project structure
 
-``
+```
 ├── app
 ├── src
 │   ├── SecretBox
@@ -34,7 +34,7 @@ To run the program execute the following comamnd from the build folder `.//bin/R
 │   └── SecureBoxHack
 │       └── includes
 └── tests
-``
+```
 
 * app folder contains the main executable target
 * src contains two libraries targets
