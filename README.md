@@ -23,3 +23,21 @@ The project uses CMake build tools for project configuration.
 The program receives two mandatory parameters of type `unsigned int`. The output shows whether the randomply generated matrix was successfully unlocked.
 
 To run the program execute the following comamnd from the build folder `.//bin/Release/secure_box_hack 10 10`
+
+## Project structure
+
+`
+├── app
+├── src
+│   ├── SecretBox
+│   │   └── includes
+│   └── SecureBoxHack
+│       └── includes
+└── tests
+`
+
+* app folder contains the main executable target
+* src contains two libraries targets
+  * SecretBox contains the code of the original SecretBox task without modifications
+  * SecureBoxHack contains the code for cracking the SecretBox unlock algorithm
+* tests contains the unit tests for the cracker
