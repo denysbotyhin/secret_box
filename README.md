@@ -41,3 +41,7 @@ To run the program execute the following comamnd from the build folder `.//bin/R
   * SecretBox contains the code of the original SecretBox task without modifications
   * SecureBoxHack contains the code for cracking the SecretBox unlock algorithm
 * tests contains the unit tests for the cracker
+
+# Dependencies
+
+* Gtest opensource library for the unit tests
