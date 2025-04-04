@@ -76,13 +76,8 @@ void BoxHack::fillInitialState()
 
 void BoxHack::echelonGaussMatrix()
 {
-    // std::atomic_uint32_t workerRow;
-
     for (uint32_t i = 0, j = 0; i < m.size() - 1; ++i, j = i)
     {
-        // std::vector<uint32_t> addableRowIDs;
-        // addableRowIDs.reserve(std::sqrt(m.size() / 2));
-
         for (; j < m.size() && !m[j].test(i); j++)
         { // leave empty
         }
@@ -93,15 +88,8 @@ void BoxHack::echelonGaussMatrix()
         else
             j++;
 
-        // auto &row = m[i];
-
         for (; j < m.size(); j++)
             if (m[j].test(i))
                 m[j] ^= m[i];
-        // for (; j < m.size(); j++)
-        //     if (m[j].test(i))
-        //         addableRowIDs.push_back(j);
-
-        // std::thread rowAddingWorker([&m, &addableRowIDs]() {});
     }
 }
