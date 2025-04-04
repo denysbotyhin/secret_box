@@ -38,13 +38,19 @@ bool openBox(uint32_t y, uint32_t x)
 
 int main(int argc, char *argv[])
 {
+    if (argc < 3)
+    {
+        std::cout << "Bad usage! The program requires two unsigned integers to build the box" << std::endl;
+        return 1;
+    }
+
     uint32_t y = std::atol(argv[1]);
     uint32_t x = std::atol(argv[2]);
 
     if (x == 0 || y == 0)
-        return 0;
+        return 1;
 
-    if (argc > 2)
+    if (argc > 3)
     {
         if (std::strcmp(argv[3], "info") == 0)
         {
