@@ -2,14 +2,17 @@ include(CTest)
 include(GoogleTest)
 enable_testing()
 
+set(CMAKE_BUILD_TYPE "Release")
+
 set(TESTS_EXECUTABLE_NAME secret_box_tests)
 
 add_executable(${TESTS_EXECUTABLE_NAME} secret_box.cpp)
 
 set_target_properties(${TESTS_EXECUTABLE_NAME}
     PROPERTIES
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/tests/archive"
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/tests/bin"
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/archive/${CMAKE_BUILD_TYPE}"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE}"
 )
 
 target_link_libraries(${TESTS_EXECUTABLE_NAME} PUBLIC
@@ -31,3 +34,5 @@ gtest_add_tests(
     TARGET ${TESTS_EXECUTABLE_NAME}
     SOURCES secret_box.cpp)
 gtest_discover_tests(${TESTS_EXECUTABLE_NAME} DISCOVERY_MODE PRE_TEST)
+
+set(CMAKE_BUILD_TYPE "Debug")

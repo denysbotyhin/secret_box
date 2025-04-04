@@ -24,7 +24,7 @@ You will need a C++ compiler which supports the C++20 standard.
 
 The program receives two mandatory parameters of type `unsigned int`. The output shows whether the randomply generated matrix was successfully unlocked.
 
-To run the program execute the following comamnd from the build folder `.//bin/Release/secure_box_hack 10 10`
+To run the program execute the following comamnd from the build folder `.//bin/Release/secure_box 10 10`
 
 ## Project structure
 
