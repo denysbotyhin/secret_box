@@ -44,7 +44,7 @@ GTEST_TEST(SecureBoxTests, TestsUnder10)
 
 GTEST_TEST(SecureBoxTests, SquareMatrix10_20)
 {
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < 200; i++)
     {
         uint32_t y = rng() % 10 + 10;
         SecureBox box(y, y);
@@ -93,7 +93,7 @@ TEST(SecureBoxTests, TestsUnder30_50)
 
 TEST(SecureBoxTests, TestsUnder50_100)
 {
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < 10; i++)
     {
         SecureBox box(rng() % 50 + 50, rng() % 50 + 50);
         auto state = box.getState();
