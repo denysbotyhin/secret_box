@@ -12,16 +12,16 @@ namespace helpers
 {
 enum class LogLevel
 {
-    OFF,
+    FATAL,
     INFO,
     DEBUG
 };
-inline LogLevel logLevel = LogLevel::OFF;
+inline LogLevel logLevel = LogLevel::FATAL;
 inline auto lastMessageTimestamp = std::chrono::steady_clock::now();
 
 /// @brief Logs the time in milliseconds elapsed since the last call to the
 /// logTimestamp() function or since the launch if no calls were made
-void logTimestamp();
+void logTimestamp(LogLevel level = LogLevel::INFO);
 
 /// @brief Prints the log message with the specified LogLevel
 /// @param message the message to be displayed
@@ -78,7 +78,8 @@ void logMatrix(const M &m, std::string message = "")
 /// @param i The flat index
 /// @param x the number of the columns in the matrix
 /// @return tuple with the {y, x} matrix coordinates
-std::tuple<uint32_t, uint32_t> toCartesianCoordinates(uint32_t i, uint32_t x);
+std::tuple<uint32_t, uint32_t> toCartesianCoordinates(std::size_t i,
+                                                      std::size_t x);
 } // namespace helpers
 } // namespace SecureBoxHack
 

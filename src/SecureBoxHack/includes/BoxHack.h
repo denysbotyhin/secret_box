@@ -29,7 +29,7 @@ private:
     // SeureBox initial lock state
     const BoolMatrix &state;
     // SecureBox dimentions
-    const uint32_t y, x;
+    const std::size_t y, x;
     // container for the generated Gaussian matrix of linear equations
     GaussMatrix m;
 
@@ -42,7 +42,7 @@ private:
     /// @brief Fills the row of the Gauss matrix
     /// @param row The row to be filled
     /// @param rowI Zero based index of the row in the matrix
-    void fillGaussRow(DynamicBitset &row, uint32_t rowI);
+    void fillGaussRow(DynamicBitset &row, std::size_t rowI);
 
     /// @brief Adds the initial lock state into the last column of the Gauss matrix
     void fillInitialState();

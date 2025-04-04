@@ -16,7 +16,7 @@
 
 using namespace SecureBoxHack;
 
-std::mt19937 rng(time(0));
+std::mt19937 rng(static_cast<uint32_t>(time(0)));
 
 GTEST_TEST(SecureBoxTests, TestsUnder10)
 {

@@ -5,10 +5,10 @@ namespace SecureBoxHack
 {
 namespace helpers
 {
-void logTimestamp()
+void logTimestamp(LogLevel level)
 {
     using namespace std::chrono;
-    if (logLevel < LogLevel::INFO)
+    if (logLevel <= level)
         return;
 
     std::cout << duration_cast<milliseconds>(steady_clock::now() -
@@ -27,7 +27,8 @@ void logMessage(std::string message, LogLevel level)
     std::cout << "\t" << message << "\n";
 }
 
-std::tuple<uint32_t, uint32_t> toCartesianCoordinates(uint32_t i, uint32_t x)
+std::tuple<uint32_t, uint32_t> toCartesianCoordinates(std::size_t i,
+                                                      std::size_t x)
 {
     return {i / x, i % x};
 }

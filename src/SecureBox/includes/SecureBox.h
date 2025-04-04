@@ -55,7 +55,7 @@ public:
     // the
     //              same row above and the same column to the left of it.
     //================================================================================
-    void toggle(uint32_t y, uint32_t x, bool verbose = false)
+    void toggle(uint32_t y, uint32_t x)
     {
         box[y][x] = !box[y][x];
         for (uint32_t i = 0; i < xSize; i++)

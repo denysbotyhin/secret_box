@@ -2,6 +2,7 @@
 #include "helpers.h"
 #include <chrono>
 #include <ranges>
+#include <thread>
 
 using namespace SecureBoxHack;
 
@@ -13,22 +14,23 @@ std::vector<std::tuple<uint32_t, uint32_t>> BoxHack::getUnlockSequence()
     echelonGaussMatrix();
     helpers::logMatrix(m, "Echelon form builded");
 
-    std::vector<bool> gaussMatrixSolution(m.size(), false);
+    std::vector<bool> linearSystemSolution(m.size(), false);
     std::vector<std::tuple<uint32_t, uint32_t>> togglCells;
 
-    uint32_t i = m.size() - 1;
+    std::size_t i = m.size() - 1;
     do
     {
         bool value = m[i].back();
-        // the row has the form like 000.....1 which means the system has no solution
+
+        // the 'x' component is missing. leave the value as 0 and continue
         if (!m[i].test(i) && value)
-            return {};
+            continue;
 
-        for (uint32_t j = m[i].size() - 2; j != i; j--)
+        for (std::size_t j = m[i].size() - 2; j != i; j--)
             if (m[i].test(j))
-                value = value ^ gaussMatrixSolution[j];
+                value = value ^ linearSystemSolution[j];
 
-        gaussMatrixSolution[i] = value;
+        linearSystemSolution[i] = value;
         if (value)
             togglCells.push_back(helpers::toCartesianCoordinates(i, x));
     } while (i-- != 0);
@@ -45,14 +47,12 @@ std::vector<std::tuple<uint32_t, uint32_t>> BoxHack::getUnlockSequence()
 
 void BoxHack::buildGaussMatrix()
 {
-    uint32_t size = y * x;
-
-    for (uint32_t i = 0; i < size; i++)
+    for (std::size_t i = 0; i < y * x; i++)
         fillGaussRow(m[i], i);
     fillInitialState();
 }
 
-void BoxHack::fillGaussRow(DynamicBitset &row, uint32_t rowI)
+void BoxHack::fillGaussRow(DynamicBitset &row, std::size_t rowI)
 {
     // the cell coordinates
     auto [posY, posX] = helpers::toCartesianCoordinates(rowI, x);
@@ -66,37 +66,42 @@ void BoxHack::fillGaussRow(DynamicBitset &row, uint32_t rowI)
 
 void BoxHack::fillInitialState()
 {
-    const uint32_t size = x * y;
+    const std::size_t size = x * y;
     auto stateJoinView = state | std::views::join;
     auto cur = stateJoinView.begin();
 
-    for (uint32_t i = 0; i < size; i++, cur++)
+    for (std::size_t i = 0; i < size; i++, cur++)
         m[i].set(size, *cur);
 }
 
 void BoxHack::echelonGaussMatrix()
 {
-    for (uint32_t i = 0; i < m.size() - 1; i++)
+    // std::atomic_uint32_t workerRow;
+
+    for (uint32_t i = 0, j = 0; i < m.size() - 1; ++i, j = i)
     {
-        uint32_t j = i;
+        // std::vector<uint32_t> addableRowIDs;
+        // addableRowIDs.reserve(std::sqrt(m.size() / 2));
+
         for (; j < m.size() && !m[j].test(i); j++)
-        {
+        { // leave empty
         }
         if (j == m.size())
-            break;
+            continue;
         if (j != i)
             std::swap(m[i], m[j]);
         else
             j++;
 
+        // auto &row = m[i];
+
         for (; j < m.size(); j++)
             if (m[j].test(i))
-            {
-                // const auto start = std::chrono::steady_clock::now();
                 m[j] ^= m[i];
-                // std::cout << "row xor: "
-                //           << std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - start).count()
-                //           << "ms\n";
-            }
+        // for (; j < m.size(); j++)
+        //     if (m[j].test(i))
+        //         addableRowIDs.push_back(j);
+
+        // std::thread rowAddingWorker([&m, &addableRowIDs]() {});
     }
 }

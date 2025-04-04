@@ -22,9 +22,9 @@ public:
     /// @brief DynamicBitset constructor
     /// @param size The number of bits to be stored
     DynamicBitset(std::size_t size)
-        : bitset(
-              std::ceil(size / static_cast<float>(sizeof(ContainerType) * 8)),
-              0),
+        : bitset(static_cast<uint64_t>(std::ceil(
+                     size / static_cast<float>(sizeof(ContainerType) * 8))),
+                 0),
           _s(size)
     {
     }
