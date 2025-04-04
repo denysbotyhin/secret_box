@@ -16,14 +16,13 @@
 
 using namespace SecureBoxHack;
 
+std::mt19937 rng(time(0));
+
 GTEST_TEST(SecureBoxTests, TestsUnder10)
 {
-    std::mt19937 rng(time(0));
-
     for (int i = 0; i < 200; i++)
     {
-        uint32_t y = rng() % 10 + 1, x = rng() % 10 + 1;
-        SecureBox box(y, x);
+        SecureBox box(rng() % 10 + 1, rng() % 10 + 1);
         auto state = box.getState();
 
         if (std::ranges::all_of(state | std::views::join,
@@ -40,26 +39,11 @@ GTEST_TEST(SecureBoxTests, TestsUnder10)
             EXPECT_FALSE(box.isLocked());
         else
             EXPECT_TRUE(box.isLocked());
-
-        if (box.isLocked() && !toggleSeq.empty())
-        {
-            helpers::logLevel = helpers::LogLevel::DEBUG;
-            char buffer[100];
-            snprintf(buffer,
-                     100,
-                     "test failed with y = %u, x = %u, matrix:",
-                     y,
-                     x);
-            helpers::logMatrix(state);
-            helpers::logLevel = helpers::LogLevel::OFF;
-        }
     }
 }
 
 GTEST_TEST(SecureBoxTests, SquareMatrix10_20)
 {
-    std::mt19937 rng(time(0));
-
     for (int i = 0; i < 20; i++)
     {
         uint32_t y = rng() % 10 + 10;
@@ -67,7 +51,7 @@ GTEST_TEST(SecureBoxTests, SquareMatrix10_20)
         auto state = box.getState();
 
         if (std::ranges::all_of(state | std::views::join,
-                                [](const auto val) { return val; }))
+                                [](const auto val) { return !val; }))
             continue;
 
         BoxHack hack(state);
@@ -80,34 +64,18 @@ GTEST_TEST(SecureBoxTests, SquareMatrix10_20)
             EXPECT_FALSE(box.isLocked());
         else
             EXPECT_TRUE(box.isLocked());
-
-        if (box.isLocked() && !toggleSeq.empty())
-        {
-            helpers::logLevel = helpers::LogLevel::DEBUG;
-            char buffer[100];
-            snprintf(buffer,
-                     100,
-                     "test failed with y = %u, x = %u, matrix:",
-                     y,
-                     y);
-            helpers::logMatrix(state);
-            helpers::logLevel = helpers::LogLevel::OFF;
-        }
     }
 }
 
 TEST(SecureBoxTests, TestsUnder30_50)
 {
-    std::mt19937 rng(time(0));
-
     for (int i = 0; i < 10; i++)
     {
-        uint32_t y = rng() % 20 + 30, x = rng() % 20 + 30;
-        SecureBox box(y, x);
+        SecureBox box(rng() % 20 + 30, rng() % 20 + 30);
         auto state = box.getState();
 
         if (std::ranges::all_of(state | std::views::join,
-                                [](const auto val) { return val; }))
+                                [](const auto val) { return !val; }))
             continue;
 
         BoxHack hack(state);
@@ -120,36 +88,19 @@ TEST(SecureBoxTests, TestsUnder30_50)
             EXPECT_FALSE(box.isLocked());
         else
             EXPECT_TRUE(box.isLocked());
-
-        if (box.isLocked() && !toggleSeq.empty())
-        {
-            helpers::logLevel = helpers::LogLevel::DEBUG;
-            char buffer[100];
-            snprintf(buffer,
-                     100,
-                     "test failed with y = %u, x = %u, matrix:",
-                     y,
-                     x);
-            helpers::logLevel = helpers::LogLevel::OFF;
-        }
     }
 }
 
 TEST(SecureBoxTests, TestsUnder50_100)
 {
-    std::mt19937 rng(time(0));
-
     for (int i = 0; i < 20; i++)
     {
-        uint32_t y = rng() % 50 + 50, x = rng() % 50 + 50;
-        SecureBox box(y, x);
+        SecureBox box(rng() % 50 + 50, rng() % 50 + 50);
         auto state = box.getState();
 
         if (std::ranges::all_of(state | std::views::join,
-                                [](const auto val) { return val; }))
-        {
+                                [](const auto val) { return !val; }))
             continue;
-        }
 
         BoxHack hack(state);
         auto toggleSeq = hack.getUnlockSequence();
@@ -161,17 +112,5 @@ TEST(SecureBoxTests, TestsUnder50_100)
             EXPECT_FALSE(box.isLocked());
         else
             EXPECT_TRUE(box.isLocked());
-
-        if (box.isLocked() && !toggleSeq.empty())
-        {
-            helpers::logLevel = helpers::LogLevel::INFO;
-            char buffer[100];
-            snprintf(buffer,
-                     100,
-                     "test failed with y = %u, x = %u, matrix:",
-                     y,
-                     x);
-            helpers::logLevel = helpers::LogLevel::OFF;
-        }
     }
 }
