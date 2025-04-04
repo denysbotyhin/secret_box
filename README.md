@@ -31,7 +31,7 @@ To run the program execute the following comamnd from the build folder `.//bin/R
 ```
 ├── app
 ├── src
-│   ├── SecretBox
+│   ├── SecureBox
 │   │   └── includes
 │   └── SecureBoxHack
 │       └── includes
