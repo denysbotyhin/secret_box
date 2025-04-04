@@ -17,6 +17,16 @@ target_link_libraries(${TESTS_EXECUTABLE_NAME} PUBLIC
     ${LIB_SECRET_BOX_HACK}
     GTest::gtest_main)
 
+if(${ENABLE_WARNINGS})
+    target_set_warnings(
+        TARGET
+        ${TESTS_EXECUTABLE_NAME}
+        ENABLE
+        ${ENABLE_WARNINGS}
+        AS_ERRORS
+        ${ENABLE_WARNINGS_AS_ERRORS})
+endif()
+
 gtest_add_tests(
     TARGET ${TESTS_EXECUTABLE_NAME}
     SOURCES secret_box.cpp)

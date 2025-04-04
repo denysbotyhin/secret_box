@@ -25,10 +25,10 @@ namespace SecureBoxHack
     private:
         // SeureBox initial lock state
         const BoolMatrix &state;
-        // container for the generated Gaussian matrix of linear equations
-        GaussMatrix m;
         // SecureBox dimentions
         const uint32_t y, x;
+        // container for the generated Gaussian matrix of linear equations
+        GaussMatrix m;
 
         /// @brief Generates the Gaussian Elimination Matrix
         /// Each row of this matrix represents the toggle effect of a single cell,

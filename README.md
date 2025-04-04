@@ -8,6 +8,8 @@ The project uses CMake build tools for project configuration.
 
 ### Installation guide
 
+You will need a C++ compiler which supports the C++20 standard.
+
 * clone the repository
 * install the CMake build tools
 * execute the `cmake --version` command and ensure that the output is greather than 3.31.3 (you can modify the cmake_minimum_required in the root CMakeLists.txt per your responsibility)

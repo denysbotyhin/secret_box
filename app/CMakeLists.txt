@@ -12,3 +12,13 @@ set_target_properties(${EXECUTABLE_NAME}
 target_link_libraries(${EXECUTABLE_NAME} PUBLIC
     ${LIB_SECRET_BOX}
     ${LIB_SECRET_BOX_HACK})
+
+if(${ENABLE_WARNINGS})
+    target_set_warnings(
+        TARGET
+        ${EXECUTABLE_NAME}
+        ENABLE
+        ${ENABLE_WARNINGS}
+        AS_ERRORS
+        ${ENABLE_WARNINGS_AS_ERRORS})
+endif()

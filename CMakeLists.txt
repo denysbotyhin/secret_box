@@ -6,6 +6,19 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+option(ENABLE_LTO "Enable to add Link Time Optimization." ON)
+option(ENABLE_WARNINGS "Enable to add warnings to a target." OFF)
+
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
+
+include(ConfigSafeGuards)
+include(LTO)
+include(CTest)
+include(Sanitizer)
+
+add_sanitizer_flags()
+enable_testing()
+
 include(FetchContent)
 FetchContent_Declare(
   gtest
@@ -14,6 +27,10 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(gtest)
+
+if(ENABLE_WARNINGS)
+    include(Warnings)
+endif()
 
 set(EXECUTABLE_NAME secret_box)
 set(LIB_SECRET_BOX secret_box_lib.a)

@@ -18,3 +18,13 @@ set_target_properties(${LIB_SECRET_BOX}
 )
 
 target_include_directories(${LIB_SECRET_BOX_HACK} PUBLIC ${LIBRARY_INCLUDES})
+
+if(${ENABLE_WARNINGS})
+    target_set_warnings(
+        TARGET
+        ${LIB_SECRET_BOX_HACK}
+        ENABLE
+        ${ENABLE_WARNINGS}
+        AS_ERRORS
+        ${ENABLE_WARNINGS_AS_ERRORS})
+endif()

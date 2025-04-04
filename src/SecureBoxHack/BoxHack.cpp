@@ -19,7 +19,6 @@ std::vector<std::tuple<uint32_t, uint32_t>> BoxHack::getUnlockSequence()
     uint32_t i = m.size() - 1;
     do
     {
-        const auto &row = m[i];
         bool value = m[i].back();
         // the row has the form like 000.....1 which means the system has no solution
         if (!m[i].test(i) && value)
@@ -45,7 +44,7 @@ void BoxHack::buildGaussMatrix()
 {
     uint32_t size = y * x;
 
-    for (int i = 0; i < size; i++)
+    for (uint32_t i = 0; i < size; i++)
         fillGaussRow(m[i], i);
     fillInitialState();
 }
@@ -55,10 +54,10 @@ void BoxHack::fillGaussRow(DynamicBitset &row, uint32_t rowI)
     // the cell coordinates
     auto [posY, posX] = helpers::toCartesianCoordinates(rowI, x);
     // fill the column
-    for (int j = 0; j < y; j++)
+    for (uint32_t j = 0; j < y; j++)
         row.set(j * x + posX);
     // fill the row
-    for (int j = 0; j < x; j++)
+    for (uint32_t j = 0; j < x; j++)
         row.set(posY * x + j);
 }
 
