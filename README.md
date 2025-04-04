@@ -1,6 +1,6 @@
-# SecureBox teset task
+# SecureBox test task
 
-The repository is created in order to implement, share and discuss the code written for the job interview preparation.
+The repository is created in order to implement, share and discuss the code written for the job interview test task.
 
 ## Quick start
 
@@ -10,12 +10,13 @@ The project uses CMake build tools for project configuration.
 
 * clone the repository
 * install the CMake build tools
+* execute the `cmake --version` command and ensure that the output is greather than 3.31.3 (you can modify the cmake_minimum_required in the root CMakeLists.txt per your responsibility)
 * open terminal and switch into the project's root folder
 * create the 'build' folder in the root folder of the repo
 * switch into the 'build' folder
 * execute the command `cmake ..` command to generate the build files
-* ececute the command `cmake --build {project_root}/build --config Release --target secret_box -j 10 --` to build the project
-* the executable can be found in the {project_root}/build/bin/Release/secure_box_hack
+* ececute the command `cmake --build . --config Release --target secret_box -j 10 --` to build the project
+* the executable can be found in the {project_root}/build/bin/Release/secure_box
 
 ### Usage example
 
