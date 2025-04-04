@@ -1,2 +1,2 @@
-add_subdirectory(SecretBox)
+add_subdirectory(SecureBox)
 add_subdirectory(SecureBoxHack)

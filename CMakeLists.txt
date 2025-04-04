@@ -8,6 +8,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 option(ENABLE_LTO "Enable to add Link Time Optimization." ON)
 option(ENABLE_WARNINGS "Enable to add warnings to a target." OFF)
+option(ENABLE_SANITIZE_ADDR "Enable to add warnings to a target." ON)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 

@@ -5,14 +5,14 @@
 //  Created by Denys on 07.01.2025.
 //
 
-#include "SecureBox.h"
 #include "BoxHack.h"
+#include "SecureBox.h"
 #include "helpers.h"
 
 #include <gtest/gtest.h>
 #include <random>
-#include <time.h>
 #include <ranges>
+#include <time.h>
 
 using namespace SecureBoxHack;
 
@@ -26,8 +26,8 @@ GTEST_TEST(SecureBoxTests, TestsUnder10)
         SecureBox box(y, x);
         auto state = box.getState();
 
-        if (std::ranges::all_of(state | std::views::join, [](const auto val)
-                                { return val; }))
+        if (std::ranges::all_of(state | std::views::join,
+                                [](const auto val) { return !val; }))
             continue;
 
         BoxHack hack(state);
@@ -45,7 +45,11 @@ GTEST_TEST(SecureBoxTests, TestsUnder10)
         {
             helpers::logLevel = helpers::LogLevel::DEBUG;
             char buffer[100];
-            snprintf(buffer, 100, "test failed with y = %u, x = %u, matrix:", y, x);
+            snprintf(buffer,
+                     100,
+                     "test failed with y = %u, x = %u, matrix:",
+                     y,
+                     x);
             helpers::logMatrix(state);
             helpers::logLevel = helpers::LogLevel::OFF;
         }
@@ -62,8 +66,8 @@ GTEST_TEST(SecureBoxTests, SquareMatrix10_20)
         SecureBox box(y, y);
         auto state = box.getState();
 
-        if (std::ranges::all_of(state | std::views::join, [](const auto val)
-                                { return val; }))
+        if (std::ranges::all_of(state | std::views::join,
+                                [](const auto val) { return val; }))
             continue;
 
         BoxHack hack(state);
@@ -81,7 +85,11 @@ GTEST_TEST(SecureBoxTests, SquareMatrix10_20)
         {
             helpers::logLevel = helpers::LogLevel::DEBUG;
             char buffer[100];
-            snprintf(buffer, 100, "test failed with y = %u, x = %u, matrix:", y, y);
+            snprintf(buffer,
+                     100,
+                     "test failed with y = %u, x = %u, matrix:",
+                     y,
+                     y);
             helpers::logMatrix(state);
             helpers::logLevel = helpers::LogLevel::OFF;
         }
@@ -98,8 +106,8 @@ TEST(SecureBoxTests, TestsUnder30_50)
         SecureBox box(y, x);
         auto state = box.getState();
 
-        if (std::ranges::all_of(state | std::views::join, [](const auto val)
-                                { return val; }))
+        if (std::ranges::all_of(state | std::views::join,
+                                [](const auto val) { return val; }))
             continue;
 
         BoxHack hack(state);
@@ -117,7 +125,11 @@ TEST(SecureBoxTests, TestsUnder30_50)
         {
             helpers::logLevel = helpers::LogLevel::DEBUG;
             char buffer[100];
-            snprintf(buffer, 100, "test failed with y = %u, x = %u, matrix:", y, x);
+            snprintf(buffer,
+                     100,
+                     "test failed with y = %u, x = %u, matrix:",
+                     y,
+                     x);
             helpers::logLevel = helpers::LogLevel::OFF;
         }
     }
@@ -127,15 +139,17 @@ TEST(SecureBoxTests, TestsUnder50_100)
 {
     std::mt19937 rng(time(0));
 
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 20; i++)
     {
         uint32_t y = rng() % 50 + 50, x = rng() % 50 + 50;
         SecureBox box(y, x);
         auto state = box.getState();
 
-        if (std::ranges::all_of(state | std::views::join, [](const auto val)
-                                { return val; }))
+        if (std::ranges::all_of(state | std::views::join,
+                                [](const auto val) { return val; }))
+        {
             continue;
+        }
 
         BoxHack hack(state);
         auto toggleSeq = hack.getUnlockSequence();
@@ -152,7 +166,11 @@ TEST(SecureBoxTests, TestsUnder50_100)
         {
             helpers::logLevel = helpers::LogLevel::INFO;
             char buffer[100];
-            snprintf(buffer, 100, "test failed with y = %u, x = %u, matrix:", y, x);
+            snprintf(buffer,
+                     100,
+                     "test failed with y = %u, x = %u, matrix:",
+                     y,
+                     x);
             helpers::logLevel = helpers::LogLevel::OFF;
         }
     }

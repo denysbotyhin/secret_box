@@ -1,5 +1,5 @@
-#include "SecureBox.h"
 #include "BoxHack.h"
+#include "SecureBox.h"
 #include "helpers.h"
 #include <iostream>
 
@@ -40,7 +40,9 @@ int main(int argc, char *argv[])
 {
     if (argc < 3)
     {
-        std::cout << "Bad usage! The program requires two unsigned integers to build the box" << std::endl;
+        std::cout << "Bad usage! The program requires two unsigned integers to "
+                     "build the box"
+                  << std::endl;
         return 1;
     }
 

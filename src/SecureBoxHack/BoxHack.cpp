@@ -34,7 +34,10 @@ std::vector<std::tuple<uint32_t, uint32_t>> BoxHack::getUnlockSequence()
     } while (i-- != 0);
 
     char buffer[100];
-    snprintf(buffer, 100, "Solution found. Reuires %lu toggles", togglCells.size());
+    snprintf(buffer,
+             100,
+             "Solution found. Reuires %lu toggles",
+             togglCells.size());
     helpers::logMessage(buffer);
 
     return {togglCells.rbegin(), togglCells.rend()};

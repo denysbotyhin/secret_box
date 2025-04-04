@@ -6,8 +6,8 @@
 
 namespace SecureBoxHack
 {
-    using BoolMatrix = std::vector<std::vector<bool>>;
-    using GaussMatrix = std::vector<DynamicBitset>;
-}
+using BoolMatrix = std::vector<std::vector<bool>>;
+using GaussMatrix = std::vector<DynamicBitset>;
+} // namespace SecureBoxHack
 
 #endif
