@@ -5,6 +5,13 @@ enable_testing()
 set(TESTS_EXECUTABLE_NAME secret_box_tests)
 
 add_executable(${TESTS_EXECUTABLE_NAME} secret_box.cpp)
+
+set_target_properties(${TESTS_EXECUTABLE_NAME}
+    PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/tests/archive"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/tests/bin"
+)
+
 target_link_libraries(${TESTS_EXECUTABLE_NAME} PUBLIC
     ${LIB_SECRET_BOX}
     ${LIB_SECRET_BOX_HACK}
