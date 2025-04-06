@@ -1,10 +1,43 @@
 #include "BoxHack.h"
 #include "helpers.h"
+#include <algorithm>
+#include <blockingconcurrentqueue.h>
 #include <chrono>
+#include <deque>
+#include <mutex>
 #include <ranges>
 #include <thread>
 
 using namespace SecureBoxHack;
+
+namespace SecureBoxHack
+{
+struct WorkerData
+{
+    BoxHack &h;
+    bool workerTerminationFlag = false;
+    std::size_t pivotRowId{};
+    moodycamel::BlockingConcurrentQueue<std::size_t> workerData{200};
+
+    WorkerData(BoxHack &hack) : h(hack)
+    {
+    }
+};
+
+void rowElliminationWorker(WorkerData &data)
+{
+    while (!data.workerTerminationFlag)
+    {
+        std::size_t recordId;
+        if (data.workerData.wait_dequeue_timed(recordId,
+                                               std::chrono::milliseconds(10)))
+            data.h.m[recordId] ^= data.h.m[data.pivotRowId];
+    }
+}
+
+} // namespace SecureBoxHack
+
+void rowElliminationWorker(WorkerData &data);
 
 std::vector<std::tuple<uint32_t, uint32_t>> BoxHack::getUnlockSequence()
 {
@@ -76,10 +109,13 @@ void BoxHack::fillInitialState()
 
 void BoxHack::echelonGaussMatrix()
 {
-    for (uint32_t i = 0, j = 0; i < m.size() - 1; ++i, j = i)
+    WorkerData data(*this);
+    std::thread threadWorker(rowElliminationWorker, std::ref(data));
+
+    for (std::size_t i = 0, j = 0; i < m.size() - 1; ++i, j = i)
     {
         for (; j < m.size() && !m[j].test(i); j++)
-        { // leave empty
+        { // leave empty, we're searching for the row with Xi component equal true
         }
         if (j == m.size())
             continue;
@@ -88,8 +124,17 @@ void BoxHack::echelonGaussMatrix()
         else
             j++;
 
+        data.pivotRowId = i;
+
         for (; j < m.size(); j++)
             if (m[j].test(i))
-                m[j] ^= m[i];
+                data.workerData.enqueue(j);
+
+        std::size_t recordId;
+        while (data.workerData.try_dequeue(recordId))
+            m[recordId] ^= m[i];
     }
+
+    data.workerTerminationFlag = true;
+    threadWorker.join();
 }

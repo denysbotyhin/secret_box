@@ -10,6 +10,8 @@ set(LIBRARY_INCLUDES "./includes" "${CMAKE_BINARY_DIR}/configured_files/include"
 
 add_library(${LIB_SECRET_BOX_HACK} STATIC ${LIBRARY_SOURCES} ${LIBRARY_HEADERS})
 
+target_link_libraries(${LIB_SECRET_BOX_HACK} PUBLIC concurrentqueue)
+
 set_target_properties(${LIB_SECRET_BOX}
     PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/archive/${CMAKE_BUILD_TYPE}"

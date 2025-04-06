@@ -2,6 +2,7 @@
 #define helpers_h
 
 #include "DynamicBitset.h"
+#include "types.h"
 #include <bitset>
 #include <chrono>
 #include <concepts>
@@ -22,12 +23,13 @@ inline LogLevel logLevel = LogLevel::FATAL;
 inline auto lastMessageTimestamp = std::chrono::steady_clock::now();
 
 /// @brief Logs the time in milliseconds elapsed since the last call to the
+/// @param level Overrides the current log level. Defaults to INFO
 /// logTimestamp() function or since the launch if no calls were made
 void logTimestamp(LogLevel level = LogLevel::INFO);
 
 /// @brief Prints the log message with the specified LogLevel
 /// @param message the message to be displayed
-/// @param level custom log level. Defaults to INFO
+/// @param level Overrides the current log level. Defaults to INFO
 void logMessage(std::string message = "", LogLevel level = LogLevel::INFO);
 
 /// @brief Prints the std::vector in the output stream
@@ -48,8 +50,8 @@ std::ostream &operator<<(std::ostream &os, const std::vector<V> &v)
 /// @return the reference to the @os param
 inline std::ostream &operator<<(std::ostream &os, const DynamicBitset &bs)
 {
-    for (const uint64_t &field : bs.bitset)
-        os << std::bitset<64>(field);
+    for (const auto &field : bs.dbs)
+        os << std::bitset<sizeof(field) * 8>(field);
     return os;
 }
 
@@ -59,6 +61,7 @@ inline std::ostream &operator<<(std::ostream &os, const DynamicBitset &bs)
 /// @tparam M - the 2D container type
 /// @param m the matrix to be printed in the stream
 /// @param message custom message to be displayed above the matrix
+/// @param level Overrides the current log level. Defaults to INFO
 template <typename M>
 void logMatrix(const M &m, std::string message = "")
 {
@@ -82,6 +85,15 @@ void logMatrix(const M &m, std::string message = "")
 /// @return tuple with the {y, x} matrix coordinates
 std::tuple<uint32_t, uint32_t> toCartesianCoordinates(std::size_t i,
                                                       std::size_t x);
+
+/// @brief
+/// @param i
+/// @param x
+/// @return
+std::tuple<uint32_t, uint32_t> rowXorCoroutine(
+    const GaussMatrix &m,
+    std::size_t mainRowId,
+    std::vector<std::size_t> addRowIds);
 } // namespace helpers
 } // namespace SecureBoxHack
 

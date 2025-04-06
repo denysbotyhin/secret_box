@@ -22,7 +22,8 @@ GTEST_TEST(SecureBoxTests, TestsUnder10)
 {
     for (int i = 0; i < 200; i++)
     {
-        SecureBox box(rng() % 10 + 1, rng() % 10 + 1);
+        SecureBox box(static_cast<uint32_t>(rng() % 10 + 1),
+                      static_cast<uint32_t>(rng() % 10 + 1));
         auto state = box.getState();
 
         if (std::ranges::all_of(state | std::views::join,
@@ -46,7 +47,7 @@ GTEST_TEST(SecureBoxTests, SquareMatrix10_20)
 {
     for (int i = 0; i < 200; i++)
     {
-        uint32_t y = rng() % 10 + 10;
+        uint32_t y = static_cast<uint32_t>(rng() % 10 + 10);
         SecureBox box(y, y);
         auto state = box.getState();
 
@@ -73,7 +74,8 @@ TEST(SecureBoxTests, TestsUnder30_50)
 {
     for (int i = 0; i < 10; i++)
     {
-        SecureBox box(rng() % 20 + 30, rng() % 20 + 30);
+        SecureBox box(static_cast<uint32_t>(rng() % 20 + 30),
+                      static_cast<uint32_t>(rng() % 20 + 30));
         auto state = box.getState();
 
         if (std::ranges::all_of(state | std::views::join,
@@ -97,7 +99,8 @@ TEST(SecureBoxTests, TestsUnder50_100)
 {
     for (int i = 0; i < 10; i++)
     {
-        SecureBox box(rng() % 50 + 50, rng() % 50 + 50);
+        SecureBox box(static_cast<uint32_t>(rng() % 50) + 50,
+                      static_cast<uint32_t>(rng() % 50 + 50));
         auto state = box.getState();
 
         if (std::ranges::all_of(state | std::views::join,

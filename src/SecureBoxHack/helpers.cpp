@@ -32,5 +32,6 @@ std::tuple<uint32_t, uint32_t> toCartesianCoordinates(std::size_t i,
 {
     return {i / x, i % x};
 }
+
 } // namespace helpers
 } // namespace SecureBoxHack

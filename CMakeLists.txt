@@ -4,7 +4,7 @@ project(SecureBoxTestTask VERSION 1.0.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_EXTENSIONS ON)
 
 option(ENABLE_LTO "Enable to add Link Time Optimization." ON)
 option(ENABLE_WARNINGS "Enable to add warnings to a target." ON)
@@ -16,7 +16,6 @@ include(ConfigSafeGuards)
 include(LTO)
 include(CTest)
 include(Sanitizer)
-
 add_sanitizer_flags()
 enable_testing()
 
@@ -26,7 +25,14 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/google/googletest.git
   GIT_TAG v1.16.0
 )
+FetchContent_Declare(
+  concurrentqueue
+  GIT_REPOSITORY    https://github.com/cameron314/concurrentqueue
+  GIT_TAG           master
+)
+FetchContent_MakeAvailable(concurrentqueue)
 
+FetchContent_MakeAvailable(gtest)
 FetchContent_MakeAvailable(gtest)
 
 if(ENABLE_WARNINGS)

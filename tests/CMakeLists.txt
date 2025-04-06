@@ -39,4 +39,3 @@ gtest_add_tests(
     TARGET ${TESTS_EXECUTABLE_NAME}
     SOURCES secret_box.cpp)
 gtest_discover_tests(${TESTS_EXECUTABLE_NAME} DISCOVERY_MODE PRE_TEST)
-

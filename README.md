@@ -24,7 +24,7 @@ To run the program execute the following comamnd from the build folder `.//bin/R
 
 ## Project structure
 
-```
+```text
 ├── app
 ├── src
 │   ├── SecureBox
@@ -40,6 +40,7 @@ To run the program execute the following comamnd from the build folder `.//bin/R
   * SecureBoxHack contains the code for cracking the SecretBox unlock algorithm
 * tests contains the unit tests for the cracker
 
-# Dependencies
+## Dependencies
 
 * Gtest opensource library for the unit tests
+* Concurrent deque by cameron314 https://github.com/cameron314/concurrentqueue

@@ -6,6 +6,10 @@
 
 namespace SecureBoxHack
 {
+
+struct WorkerData;
+void rowElliminationWorker(WorkerData &data);
+
 /// @brief Helper class unlocking the SecureBox
 class BoxHack
 {
@@ -50,6 +54,8 @@ private:
     /// @brief Converts the Gauss matrix into the echelon form
     /// for solvind the liniar equations set
     void echelonGaussMatrix();
+
+    friend void rowElliminationWorker(WorkerData &data);
 };
 } // namespace SecureBoxHack
 
