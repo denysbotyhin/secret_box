@@ -2,6 +2,7 @@ include(CTest)
 include(GoogleTest)
 enable_testing()
 
+set(SAVE_CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE})
 set(CMAKE_BUILD_TYPE "Release")
 
 set(TESTS_EXECUTABLE_NAME secret_box_tests)
@@ -35,4 +36,4 @@ gtest_add_tests(
     SOURCES secret_box.cpp)
 gtest_discover_tests(${TESTS_EXECUTABLE_NAME} DISCOVERY_MODE PRE_TEST)
 
-set(CMAKE_BUILD_TYPE "Debug")
+set(CMAKE_BUILD_TYPE ${SAVE_CMAKE_BUILD_TYPE})
