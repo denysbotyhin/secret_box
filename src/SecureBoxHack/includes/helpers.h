@@ -48,8 +48,8 @@ std::ostream &operator<<(std::ostream &os, const std::vector<V> &v)
 /// @return the reference to the @os param
 inline std::ostream &operator<<(std::ostream &os, const DynamicBitset &bs)
 {
-    for (const uint64_t &field : bs.bitset)
-        os << std::bitset<64>(field);
+    for (const uint64_t &field : bs.dbs)
+        os << std::bitset<sizeof(field * 8)>(field);
     return os;
 }
 

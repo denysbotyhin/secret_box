@@ -1,8 +1,6 @@
 #include "BoxHack.h"
 #include "helpers.h"
-#include <chrono>
 #include <ranges>
-#include <thread>
 
 using namespace SecureBoxHack;
 
@@ -38,7 +36,7 @@ std::vector<std::tuple<uint32_t, uint32_t>> BoxHack::getUnlockSequence()
     char buffer[100];
     snprintf(buffer,
              100,
-             "Solution found. Reuires %lu toggles",
+             "Solution found. Reuires %zu toggles",
              togglCells.size());
     helpers::logMessage(buffer);
 
@@ -79,10 +77,10 @@ void BoxHack::echelonGaussMatrix()
     for (uint32_t i = 0, j = 0; i < m.size() - 1; ++i, j = i)
     {
         for (; j < m.size() && !m[j].test(i); j++)
-        { // leave empty
+        { // searching for the row with Xi component equal true
         }
         if (j == m.size())
-            continue;
+            continue; // if Xi component is false consider its value in the solution as false
         if (j != i)
             std::swap(m[i], m[j]);
         else

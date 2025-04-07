@@ -30,7 +30,7 @@ void logMessage(std::string message, LogLevel level)
 std::tuple<uint32_t, uint32_t> toCartesianCoordinates(std::size_t i,
                                                       std::size_t x)
 {
-    return {i / x, i % x};
+    return {static_cast<uint32_t>(i / x), static_cast<uint32_t>(i % x)};
 }
 } // namespace helpers
 } // namespace SecureBoxHack
