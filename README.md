@@ -11,12 +11,8 @@ The project uses CMake build tools for project configuration.
 You will need a C++ compiler which supports the C++20 standard.
 
 * clone the repository
-* install the CMake build tools
-* execute the `cmake --version` command and ensure that the output is greather than 3.31.3 (you can modify the cmake_minimum_required in the root CMakeLists.txt per your responsibility)
-* open terminal and switch into the project's root folder
-* create the 'build' folder in the root folder of the repo
-* switch into the 'build' folder
-* execute the command `cmake ..` command to generate the build files
+* `make install`
+* `make prepare`
 * ececute the command `cmake --build . --config Release --target secret_box -j 10 --` to build the project
 * the executable can be found in the {project_root}/build/bin/Release/secure_box
 
