@@ -19,6 +19,6 @@ jobs:
         cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Debug
     - name: building
       run: |
-        cmake --build build --config Debug
+        cmake --build build --config Release
         cd build
         ctest .

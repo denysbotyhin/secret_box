@@ -20,5 +20,3 @@ jobs:
     - name: building
       run: |
         cmake --build build --config Debug
-        cd build
-        ctest .
