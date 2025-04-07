@@ -2,7 +2,9 @@
 #define DynamicBitset_h
 
 #include <algorithm>
+#include <functional>
 #include <iostream>
+#include <stdint.h>
 #include <vector>
 
 namespace SecureBoxHack
@@ -22,9 +24,9 @@ public:
     /// @brief DynamicBitset constructor
     /// @param size The number of bits to be stored
     DynamicBitset(std::size_t size)
-        : bitset(static_cast<uint64_t>(std::ceil(
-                     size / static_cast<float>(sizeof(ContainerType) * 8))),
-                 0),
+        : bitset(
+              static_cast<std::size_t>(size / (sizeof(ContainerType) * 8) + 1),
+              0),
           _s(size)
     {
     }

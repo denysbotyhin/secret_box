@@ -1,6 +1,7 @@
 #include "BoxHack.h"
 #include "SecureBox.h"
 #include "helpers.h"
+#include <cstring>
 #include <iostream>
 
 using namespace SecureBoxHack;
@@ -46,8 +47,8 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    uint32_t y = std::atol(argv[1]);
-    uint32_t x = std::atol(argv[2]);
+    uint32_t y = static_cast<uint32_t>(std::atol(argv[1]));
+    uint32_t x = static_cast<uint32_t>(std::atol(argv[2]));
 
     if (x == 0 || y == 0)
         return 1;

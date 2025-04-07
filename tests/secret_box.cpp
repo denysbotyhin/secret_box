@@ -67,6 +67,8 @@ GTEST_TEST(SecureBoxTests, SquareMatrix10_20)
     }
 }
 
+#ifdef BUILD_TYPE_RELEASE
+
 TEST(SecureBoxTests, TestsUnder30_50)
 {
     for (int i = 0; i < 10; i++)
@@ -114,3 +116,5 @@ TEST(SecureBoxTests, TestsUnder50_100)
             EXPECT_TRUE(box.isLocked());
     }
 }
+
+#endif

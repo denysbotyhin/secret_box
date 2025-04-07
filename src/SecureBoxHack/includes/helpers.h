@@ -3,7 +3,9 @@
 
 #include "DynamicBitset.h"
 #include <bitset>
+#include <chrono>
 #include <concepts>
+#include <iterator>
 #include <vector>
 
 namespace SecureBoxHack
